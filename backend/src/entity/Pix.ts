@@ -6,9 +6,10 @@ import {
   UpdateDateColumn,
   JoinColumn,
   ManyToOne,
-  OneToOne,
 } 
     from "typeorm";
+
+import { User } from "./User";
 
 @Entity()
 export class Pix {
@@ -20,6 +21,14 @@ export class Pix {
 
   @Column();
   value: number;
+
+  @ManyToOne(type => User, user => user.id)
+  @JoinColumn()
+  requetingUser: User;
+
+  @ManyToOne(type => User, user => user.id, { nullable: true })
+  @JoinColumn()
+  payingUser: User;
 
   @CreateDateColumn();
   createdAt: Date;
