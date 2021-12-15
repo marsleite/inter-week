@@ -2,16 +2,12 @@ import { Router } from "express";
 
 const userRoutes = Router();
 
-userRoutes.post("/signin", (req, res) => {
-  res.json({
-    message: "Entrando com o usuaário",
-  });
-});
+import { UserController } from "../resources/user/dtos/user.controller";
 
-userRoutes.post("/signup", (req, res) => {
-  res.json({
-    message: "Cadastrando o usuário",
-  });
-});
+const userController = new UserController();
+
+userRoutes.post("/signin", userController.signIn);
+
+userRoutes.post("/signup", userController.signUp);
 
 export default userRoutes;
