@@ -12,7 +12,7 @@ export default class UserService {
     const userRepository = getRepository(User);
 
     const { email, password } = user;
-    const passwordHash = md5(password);
+    const passwordHash = md5(password).toString();
 
     const existsUser = userRepository.findOne({ where: { email, password: passwordHash } });
 
