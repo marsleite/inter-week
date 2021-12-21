@@ -5,6 +5,7 @@ import md5 from 'crypto-js/md5';
 
 import {UserSignIn} from './dtos/user.signin.dtos';
 import {UserSignUp} from './dtos/user.signup.dtos';
+import AppError from '../../shared/error/AppError';
 
 export default class UserService {
 
@@ -17,8 +18,10 @@ export default class UserService {
     const existsUser = userRepository.findOne({ where: { email, password: passwordHash } });
 
     if (!existsUser) {
-      return null;
+      throw new AppError('Usuário não encontrado', 401)
     }
+
+    return existsUser;
   }
 
   async signup(user: UserSignUp) {
